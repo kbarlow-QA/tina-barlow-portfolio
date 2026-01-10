@@ -21,6 +21,7 @@
 
 // Import necessary libraries and components
 import { useState, useEffect } from "react"; // For state management and side effects
+import { useRouter } from 'next/navigation';
 import { FaGithub, FaLinkedinIn, FaTwitter } from "react-icons/fa"; // Social media icons
 import { HiOutlineMail } from "react-icons/hi"; // Email icon
 import { IoMoon, IoSunny } from "react-icons/io5"; // Theme toggle icons
@@ -314,6 +315,15 @@ export default function Home() {
         top: element.offsetTop - 64 // Offset for the navbar height
       });
     }
+  };
+
+  // Router for client-side navigation (used for contact form submit)
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // TODO: optionally send form data to an API here
+    router.push('/thank-you');
   };
 
   // THE ACTUAL WEBSITE LAYOUT STARTS HERE
@@ -1025,7 +1035,7 @@ export default function Home() {
                   }}
                 >
                   {/* Contact form - using TextField components */}
-                  <Box component="form" sx={styles.contactForm}>
+                  <Box component="form" onSubmit={handleSubmit} sx={styles.contactForm}>
                     <TextField
                       fullWidth
                       label="Name"
